@@ -1,0 +1,58 @@
+---
+- name: Set Server Timezone
+  community.general.timezone:
+    name: America/New_York
+
+- name: Install dependencies
+  package:
+    name:
+      - mysql-server
+      - software-properties-common
+
+- name: Restart MySQL
+  service:
+    name: mysql
+    state: restarted
+
+- name: Create Keyring Directory
+  file:
+    path: /etc/apt/keyrings/
+    state: directory
+
+- name: Add ZM PPA Repository Key
+  get_url:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xABE4C7F993453843F0AEB8154D0BF748776FFB04
+    dest: /etc/apt/keyrings/iconner.asc
+
+- name: Add ZM Repository
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/iconner.asc] https://ppa.launchpadcontent.net/iconnor/zoneminder-1.36/ubuntu {{ ansible_distribution_release }} main"
+    filename: zoneminder
+    state: present
+
+- name: Install ZM
+  apt:
+    update_cache: yes
+    pkg: zoneminder
+
+- name: Start ZM Service
+  service:
+    name: zoneminder
+    enabled: yes
+    state: started
+
+- name: Create ZM User
+  user:
+    name: www-data
+    group: video
+
+- name: Update Apache Configs
+  shell: |
+    a2enconf zoneminder
+    a2enmod rewrite headers expires
+
+- name: Reload Apache
+  service:
+    name: apache2
+    enabled: yes
+    state: reloaded
