@@ -7,7 +7,21 @@
       register: mysql_install
       when: zm_database | lower  == "mysql"
 
+    - name: Install MariaDB
+      ansible.builtin.package:
+        name: mariadb-server
+      register: mariadb_install
+      when: zm_database | lower  == "mariadb"
+
+    - name: Configure MariaDB
+      ansible.builtin.copy:
+        src: 50-server.cnf
+        dest: /etc/mysql/mariadb.conf.d/50-server.cnf
+        mode: "0644"
+      when: zm_database | lower  == "mariadb"
+
 - name: Restart MySQL
   ansible.builtin.service:
     name: mysql
     state: restarted
+  when: mysql_install.changed or mariadb_install.changed
