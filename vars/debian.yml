@@ -1,6 +1,7 @@
 ---
 apache_pkg: apache2
 mysql_pkg: default-mysql-server
+mysql_pkg_py_connector: python3-pymysql
 zm_repo: "https://zmrepo.zoneminder.com/debian/release-1.36 {{ ansible_distribution_release }}/"
 zm_repo_key: "https://zmrepo.zoneminder.com/debian/archive-keyring.gpg"
 zm_repo_key_checksum: "282e41d9156e2ad5541c1a3c5b9c3c05003f36019c4639f6ea92e8f891633c54"

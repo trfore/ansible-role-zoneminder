@@ -25,3 +25,7 @@
     name: mysql
     state: restarted
   when: mysql_install.changed or mariadb_install.changed
+
+- name: Secure MySQL
+  ansible.builtin.include_tasks: db-secure.yml
+  when: mysql_secure

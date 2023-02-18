@@ -1,6 +1,7 @@
 ---
 apache_pkg: apache2
 mysql_pkg: mysql-server
+mysql_pkg_py_connector: python3-pymysql
 zm_repo: "https://ppa.launchpadcontent.net/iconnor/zoneminder-1.36/ubuntu {{ ansible_distribution_release }} main"
 zm_repo_key: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xABE4C7F993453843F0AEB8154D0BF748776FFB04"
 zm_repo_key_checksum: "c3c20ff66da92ed4e4666fc41231b0d10359a59417d4442f638deda6319cbecf"
