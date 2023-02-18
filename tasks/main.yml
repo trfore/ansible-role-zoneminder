@@ -7,3 +7,7 @@
 
 - name: Install Zoneminder
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
+
+- name: Install SMTP Packages
+  ansible.builtin.include_tasks: smtp.yml
+  when: zm_smtp
