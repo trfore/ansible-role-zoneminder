@@ -1,0 +1,13 @@
+---
+- name: Install SQL Database
+  block:
+    - name: Install MySQL
+      ansible.builtin.package:
+        name: "{{ mysql_pkg }}"
+      register: mysql_install
+      when: zm_database | lower  == "mysql"
+
+- name: Restart MySQL
+  ansible.builtin.service:
+    name: mysql
+    state: restarted

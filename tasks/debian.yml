@@ -1,0 +1,99 @@
+---
+- name: Install Dependencies
+  ansible.builtin.package:
+    name:
+      - "{{ apache_pkg }}"
+      - software-properties-common
+
+- name: Add ZM Repository
+  block:
+    - name: Create Keyrings Folder
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Add ZM Repository Key
+      ansible.builtin.get_url:
+        url: "{{ zm_repo_key }}"
+        dest: /etc/apt/keyrings/zoneminder.asc
+        mode: "0644"
+        checksum: "sha256:{{ zm_repo_key_checksum }}"
+
+    - name: Add ZM Repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/zoneminder.asc] {{ zm_repo }}"
+        filename: zoneminder
+        state: present
+
+- name: Install and Configure ZM
+  block:
+    - name: Install ZM Package
+      ansible.builtin.apt:
+        update_cache: yes
+        pkg: zoneminder
+      register: zm_install
+
+    - name: Configure ZM
+      ansible.builtin.template:
+        src: zm.conf.j2
+        dest: /etc/zm/zm.conf
+        owner: root
+        group: www-data
+        mode: "0644"
+
+    - name: Update ZM Service File
+      ansible.builtin.copy:
+        src: zoneminder.service
+        dest: /lib/systemd/system/zoneminder.service
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Start ZM Service
+      ansible.builtin.service:
+        name: zoneminder
+        enabled: yes
+        state: started
+
+- name: Add User 'www-data' to Group 'video'
+  ansible.builtin.user:
+    name: www-data
+    group: video
+
+- name: Set Timezone in PHP Config
+  when: zm_install.changed
+  block:
+    - name: Get Server Timezone
+      ansible.builtin.slurp:
+        src: /etc/timezone
+      register: server_tz
+
+    - name: Get PHP Config Path
+      ansible.builtin.shell: realpath /etc/php/*/apache2/php.ini
+      register: php_cfg_path
+
+    - name: Set Timezone
+      ansible.builtin.lineinfile:
+        path: "{{ php_cfg_path.stdout }}"
+        search_string: ";date.timezone ="
+        line: "date.timezone = {{ server_tz.content | b64decode | trim }}"
+
+- name: Update Apache Config
+  when: zm_install.changed
+  block:
+    - name: Enable ZM Apache Config
+      ansible.builtin.shell: |
+        a2enconf zoneminder
+
+    - name: Enable Apache Modules
+      ansible.builtin.shell: |
+        a2enmod cgi expires headers rewrite
+
+    - name: Reload Apache
+      ansible.builtin.service:
+        name: "{{ apache_pkg }}"
+        enabled: yes
+        state: reloaded
