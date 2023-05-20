@@ -1,0 +1,30 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Ensure a locale exists
+      block:
+        - name: Install Locales
+          ansible.builtin.package:
+            name: locales
+
+        - name: Add Locale
+          community.general.locale_gen:
+            name: en_US.UTF-8
+            state: present
+
+  roles:
+    - name: Install Zoneminder
+      role: trfore.zoneminder
+      vars:
+        mysql_root_password: "password"
+        mysql_secure: true
+        zm_database: mariadb
+        zm_smtp: true
