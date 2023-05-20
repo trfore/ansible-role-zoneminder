@@ -92,6 +92,13 @@
       ansible.builtin.shell: |
         a2enmod cgi expires headers rewrite
 
+    # https://forums.zoneminder.com/viewtopic.php?p=80163#p80163
+    - name: Patch Apache CGI Config
+      ansible.builtin.replace:
+        path: /etc/apache2/conf-available/serve-cgi-bin.conf
+        regexp: "ScriptAlias \/cgi-bin\/ \/usr\/lib\/cgi-bin\/"
+        replace: "ScriptAlias /cgi-bin /usr/lib/cgi-bin"
+
     - name: Reload Apache
       ansible.builtin.service:
         name: "{{ apache_pkg }}"
