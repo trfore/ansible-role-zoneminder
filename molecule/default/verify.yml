@@ -3,50 +3,31 @@
   hosts: all
   gather_facts: true
   tasks:
-    - name: Get for Zoneminder Apache Config
-      ansible.builtin.stat:
-        path: /etc/apache2/conf-enabled/zoneminder.conf
-      register: apache_config_zm
+    - name: Set Apache Name
+      ansible.builtin.set_fact:
+        apache: "{{ 'apache2' if ansible_os_family == 'Debian' else 'httpd' }}"
 
-    - name: Check for Zoneminder Apache Config
-      ansible.builtin.assert:
-        that: apache_config_zm.stat.exists
+    - name: Test | Check for Files
+      ansible.builtin.include_tasks: ../file-check.yml
+      loop:
+        - /etc/{{ apache }}/conf-enabled/zoneminder.conf
+        - /etc/{{ apache }}/mods-enabled/cgi.load
+        - /etc/{{ apache }}/mods-enabled/rewrite.load
 
-    - name: Get for Apache Module - CGI
-      ansible.builtin.stat:
-        path: /etc/apache2/mods-enabled/cgi.load
-      register: apache_module_cgi
-
-    - name: Check for Apache Module - CGI
-      ansible.builtin.assert:
-        that: apache_module_cgi.stat.exists
-
-    - name: Get for Apache Module - Rewrite
-      ansible.builtin.stat:
-        path: /etc/apache2/mods-enabled/rewrite.load
-      register: apache_module_rewrite
-
-    - name: Check for Apache Module - Rewrite
-      ansible.builtin.assert:
-        that: apache_module_rewrite.stat.exists
-
-    - name: Get ZM Config File
+    - name: Test | Get ZM Config File
       ansible.builtin.stat:
         path: /etc/zm/zm.conf
       register: zm_cfg
 
-    - name: Check ZM Config File
+    - name: Test | Check ZM Config File
       ansible.builtin.assert:
         that:
           - zm_cfg.stat.pw_name == 'root'
           - zm_cfg.stat.gr_name == 'www-data'
 
-    - name: Check for Zoneminder
-      ansible.builtin.uri:
-        url: http://127.0.0.1/zm
-        status_code: 200
-        validate_certs: false
-      register: result
-      until: result.status == 200
-      retries: 12
-      delay: 10
+    - name: Test | Check Services
+      ansible.builtin.include_tasks: ../service-check.yml
+      loop:
+        - "{{ apache }}.service"
+        - mysql.service
+        - zoneminder.service
