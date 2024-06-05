@@ -24,7 +24,6 @@
     - name: Install Zoneminder
       role: trfore.zoneminder
       vars:
-        mysql_root_password: "password"
         mysql_secure: true
         zm_database: mysql
         zm_smtp: true

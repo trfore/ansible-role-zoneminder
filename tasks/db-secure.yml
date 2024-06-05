@@ -16,19 +16,3 @@
     name: test
     state: absent
     login_unix_socket: /run/mysqld/mysqld.sock
-
-- name: Secure MySQL | Set Root Password
-  become: true
-  no_log: true
-  block:
-    - name: Secure MySQL | Set Root Password
-      community.mysql.mysql_user:
-        name: root
-        password: "{{ mysql_root_password }}"
-        login_unix_socket: /run/mysqld/mysqld.sock
-
-    - name: Secure MySQL | Create Root Credentials File
-      ansible.builtin.template:
-        src: my.cnf.j2
-        dest: /root/.my.cnf
-        mode: "0400"

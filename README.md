@@ -6,12 +6,11 @@ Install [Zoneminder] on Debian 10-11; and Ubuntu 20.04 & 22.04.
 
 - ZM Installation Variables:
 
-  | Variable              | Default | Description                                                                              | Required |
-  | --------------------- | ------- | ---------------------------------------------------------------------------------------- | -------- |
-  | `mysql_secure`        | `false` | Boolean, secure the database - drop 'test' db, remove anonymous users, set root password | No       |
-  | `mysql_root_password` | `false` | String, required when `mysql_secure: true`, root user password                           | \* Yes   |
-  | `zm_database`         | `mysql` | String, database backend - `MariaDB` or `MySQL`                                          | No       |
-  | `zm_smtp`             | `false` | Boolean, install SMTP packages, `msmtp` and `mailutils`, for sending ZM notifications    | No       |
+  | Variable       | Default | Description                                                                              | Required |
+  | -------------- | ------- | ---------------------------------------------------------------------------------------- | -------- |
+  | `mysql_secure` | `false` | Boolean, secure the database - drop 'test' db, remove anonymous users, set root password | No       |
+  | `zm_database`  | `mysql` | String, database backend - `MariaDB` or `MySQL`                                          | No       |
+  | `zm_smtp`      | `false` | Boolean, install SMTP packages, `msmtp` and `mailutils`, for sending ZM notifications    | No       |
 
 - ZM Configuration Variables:
 
@@ -45,7 +44,7 @@ See [LICENSE](LICENSE) File
 
 ## Author Information
 
-Taylor Fore (https://github.com/trfore)
+Taylor Fore (<https://github.com/trfore>)
 
 ## References
 
