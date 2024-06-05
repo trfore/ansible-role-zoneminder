@@ -6,18 +6,13 @@ Install [Zoneminder] on Debian 10-11; and Ubuntu 20.04 & 22.04.
 
 - ZM Installation Variables:
 
-  | Variable       | Default | Description                                                                              | Required |
-  | -------------- | ------- | ---------------------------------------------------------------------------------------- | -------- |
-  | `mysql_secure` | `false` | Boolean, secure the database - drop 'test' db, remove anonymous users, set root password | No       |
-  | `zm_database`  | `mysql` | String, database backend - `MariaDB` or `MySQL`                                          | No       |
-  | `zm_smtp`      | `false` | Boolean, install SMTP packages, `msmtp` and `mailutils`, for sending ZM notifications    | No       |
-
-- ZM Configuration Variables:
-
-  | Variable     | Default  | Description                      | Required |
-  | ------------ | -------- | -------------------------------- | -------- |
-  | `zm_db_user` | `zmuser` | String, database username for ZM | No       |
-  | `zm_db_pass` | `zmpass` | String, database password for ZM | No       |
+  | Variable               | Default  | Description                                                                              | Required |
+  | ---------------------- | -------- | ---------------------------------------------------------------------------------------- | -------- |
+  | `zoneminder_db`        | `mysql`  | String, database backend - `MariaDB` or `MySQL`                                          | No       |
+  | `zoneminder_db_user`   | `zmuser` | String, database username for ZM                                                         | No       |
+  | `zoneminder_db_pass`   | `zmpass` | String, database password for ZM                                                         | No       |
+  | `zoneminder_secure_db` | `false`  | Boolean, secure the database - drop 'test' db, remove anonymous users, set root password | No       |
+  | `zoneminder_smtp`      | `false`  | Boolean, install SMTP packages, `msmtp` and `mailutils`, for sending ZM notifications    | No       |
 
 ## Dependencies
 

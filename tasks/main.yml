@@ -10,4 +10,4 @@
 
 - name: Install SMTP Packages
   ansible.builtin.include_tasks: smtp.yml
-  when: zm_smtp
+  when: zoneminder_smtp
