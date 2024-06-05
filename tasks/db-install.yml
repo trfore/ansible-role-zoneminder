@@ -29,3 +29,7 @@
 - name: Secure MySQL
   ansible.builtin.include_tasks: db-secure.yml
   when: zoneminder_secure_db
+
+- name: Create ZM Database and User
+  ansible.builtin.include_tasks: db-zm.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == "12"

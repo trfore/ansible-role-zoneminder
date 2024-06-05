@@ -45,6 +45,12 @@
         group: www-data
         mode: "0644"
 
+    - name: Create Tables in ZM Database
+      ansible.builtin.shell: |
+        mysql -u {{ zoneminder_db_user }} -p {{ zoneminder_db_pass }} < /usr/share/zoneminder/db/zm_create.sql
+      when: ansible_distribution == "Debian" and ansible_distribution_major_version == "12"
+      changed_when: true
+
     - name: Update ZM Service File
       ansible.builtin.copy:
         src: zoneminder.service
