@@ -8,8 +8,8 @@ repos:
         args: [--allow-multiple-documents]
       - id: debug-statements
       - id: end-of-file-fixer
-      # - id: no-commit-to-branch
-      #   args: [--branch, main]
+      - id: no-commit-to-branch
+        args: [--branch, main]
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
 
@@ -40,7 +40,7 @@ repos:
       - id: yamllint
         args: [-c=.yamllint]
 
-  # - repo: https://github.com/ansible/ansible-lint
-  #   rev: v24.2.2
-  #   hooks:
-  #     - id: ansible-lint
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v24.2.2
+    hooks:
+      - id: ansible-lint

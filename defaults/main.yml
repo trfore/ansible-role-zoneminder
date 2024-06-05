@@ -1,6 +1,6 @@
 ---
-mysql_secure: false
-zm_database: mysql # mariadb or mysql
-zm_smtp: false
-zm_db_user: "zmuser"
-zm_db_pass: "zmpass"
+zoneminder_db: mysql # mariadb or mysql
+zoneminder_db_user: "zmuser"
+zoneminder_db_pass: "zmpass"
+zoneminder_secure_db: false
+zoneminder_smtp: false
