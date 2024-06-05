@@ -1,0 +1,42 @@
+- name: Set Timezone in PHP Config
+  block:
+    - name: Get Server Timezone
+      ansible.builtin.slurp:
+        src: /etc/timezone
+      register: server_tz
+
+    - name: Get PHP Config Path
+      ansible.builtin.shell: realpath /etc/php/*/apache2/php.ini
+      register: php_cfg_path
+      changed_when: true
+
+    - name: Set Timezone
+      ansible.builtin.lineinfile:
+        path: "{{ php_cfg_path.stdout }}"
+        search_string: ";date.timezone ="
+        line: "date.timezone = {{ server_tz.content | b64decode | trim }}"
+
+- name: Update Apache Config
+  block:
+    - name: Enable ZM Apache Config
+      ansible.builtin.shell: |
+        a2enconf zoneminder
+      changed_when: true
+
+    - name: Enable Apache Modules
+      ansible.builtin.shell: |
+        a2enmod cgi expires headers rewrite
+      changed_when: true
+
+    # https://forums.zoneminder.com/viewtopic.php?p=80163#p80163
+    - name: Patch Apache CGI Config
+      ansible.builtin.replace:
+        path: /etc/apache2/conf-available/serve-cgi-bin.conf
+        regexp: "ScriptAlias \/cgi-bin\/ \/usr\/lib\/cgi-bin\/"
+        replace: "ScriptAlias /cgi-bin /usr/lib/cgi-bin"
+
+- name: Reload Apache
+  ansible.builtin.service:
+    name: "{{ apache_pkg }}"
+    enabled: yes
+    state: reloaded

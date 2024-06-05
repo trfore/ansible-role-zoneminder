@@ -1,0 +1,3 @@
+---
+- name: Configure Apache
+  ansible.builtin.include_tasks: tasks/apache-config.yml
