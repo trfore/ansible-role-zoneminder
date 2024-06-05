@@ -5,7 +5,7 @@ galaxy_info:
   description: Install Zoneminder on Debian/Ubuntu
   license: Apache-2.0
 
-  min_ansible_version: 2.10
+  min_ansible_version: "2.14"
 
   platforms:
     - name: Debian
