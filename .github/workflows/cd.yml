@@ -1,0 +1,11 @@
+---
+name: CD
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    uses: trfore/ansible-role/.github/workflows/deploy_ansible_galaxy.yml@main
+    secrets:
+      API_KEY: ${{ secrets.GALAXY_API_KEY }}
