@@ -16,6 +16,6 @@
     password: "{{ zoneminder_db_pass }}"
     append_privs: true
     priv:
-      "zm.*": "ALL,GRANT"
+      "zm.*": "ALL"
     state: present
     login_unix_socket: /run/mysqld/mysqld.sock
