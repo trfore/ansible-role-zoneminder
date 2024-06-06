@@ -19,3 +19,12 @@
       "zm.*": "ALL"
     state: present
     login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Zoneminder DB Setup | Remove Default User 'zmuser'
+  become: true
+  community.mysql.mysql_user:
+    name: "zmuser"
+    password: "zmpass"
+    state: absent
+    login_unix_socket: /run/mysqld/mysqld.sock
+  when: zoneminder_db_user != "zmuser" and zoneminder_db_pass != "zmpass"
