@@ -28,9 +28,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [debian11, ubuntu2204]
+        distro: [debian11, debian12, ubuntu2204]
         experimental: [false]
-        molecule_scenario: ["-s default", "-s mariadb"]
+        molecule_scenario: ["-s mariadb"]
+        include:
+          - distro: ubuntu2204
+            experimental: false
+            molecule_scenario: "-s default"
     uses: trfore/ansible-role/.github/workflows/test_ansible.yml@main
     with:
       distro: ${{ matrix.distro }}
