@@ -29,7 +29,10 @@
         state: present
 
 - name: Install and Configure ZM
-  notify: "Configure Apache"
+  notify:
+    - "Create Tables in ZM Database"
+    - "Start ZM Service"
+    - "Configure Apache"
   block:
     - name: Install ZM Package
       ansible.builtin.apt:
@@ -45,6 +48,9 @@
         group: www-data
         mode: "0644"
 
+    - name: Create ZM Database and User
+      ansible.builtin.include_tasks: db-zm.yml
+
     - name: Update ZM Service File
       ansible.builtin.copy:
         src: zoneminder.service
@@ -52,12 +58,6 @@
         owner: root
         group: root
         mode: "0644"
-
-    - name: Start ZM Service
-      ansible.builtin.service:
-        name: zoneminder
-        enabled: yes
-        state: started
 
 - name: Add User 'www-data' to Group 'video'
   ansible.builtin.user:

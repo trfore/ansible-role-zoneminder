@@ -1,0 +1,30 @@
+- name: Zoneminder DB Setup | Install MySQL Python Connector
+  ansible.builtin.package:
+    name: "{{ mysql_pkg_py_connector }}"
+
+- name: Zoneminder DB Setup | Create Database
+  become: true
+  community.mysql.mysql_db:
+    name: zm
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Zoneminder DB Setup | Create User
+  become: true
+  community.mysql.mysql_user:
+    name: "{{ zoneminder_db_user }}"
+    password: "{{ zoneminder_db_pass }}"
+    append_privs: true
+    priv:
+      "zm.*": "ALL"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Zoneminder DB Setup | Remove Default User 'zmuser'
+  become: true
+  community.mysql.mysql_user:
+    name: "zmuser"
+    password: "zmpass"
+    state: absent
+    login_unix_socket: /run/mysqld/mysqld.sock
+  when: zoneminder_db_user != "zmuser" and zoneminder_db_pass != "zmpass"
