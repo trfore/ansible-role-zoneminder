@@ -9,7 +9,7 @@ This role will install the following on the target node:
 - [MySQL] or [MariaDB] database backend for Zoneminder (ZM).
 - [PyMySQL] for configuring and securing MySQL / MariaDB.
 
-**New to Ansible?** See the [wiki (link)](https://github.com/trfore/ansible-role-zoneminder/wiki) for detailed
+**New to Ansible?** See the [wiki (link)](https://github.com/trfore/ansible-role-zoneminder/wiki/New-User-Guide) for detailed
 instructions on setting up Ansible and running this role.
 
 ## Install the Role
