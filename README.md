@@ -22,8 +22,8 @@ ansible-galaxy role install trfore.zoneminder
 
 ## Tested Platforms
 
-- `ansible-core` 2.14, 2.15 & 2.16
-- Debian 10, 11 & 12
+- `ansible-core` 2.16, 2.17 & 2.18
+- Debian 11 & 12
 - Ubuntu 20.04 & 22.04
 
 ## Role Variables
