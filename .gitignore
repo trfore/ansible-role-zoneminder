@@ -25,6 +25,7 @@ molecule/*/files/02proxy
 
 # general extras
 .DS_Store
+.private
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
