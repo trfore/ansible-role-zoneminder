@@ -43,7 +43,7 @@ pre-commit install
   # lint all files
   tox -e lint run
   # run a specific test environment
-  tox -e py-ansible2.16-ubuntu22-default run
+  tox -e py-ansible2.17-ubuntu22-default run
   # run a group of tests, e.g. the default molecule scenario
   tox -f default run
   # run all test in parallel
@@ -55,14 +55,14 @@ pre-commit install
 
   ```sh
   # molecule converge
-  tox -e py-ansible2.16-ubuntu22-default run -- converge -s default
+  tox -e py-ansible2.17-ubuntu22-default run -- converge -s default
   # molecule test w/o destroying the container
-  tox -e py-ansible2.16-ubuntu22-default run -- test -s default --destroy=never
+  tox -e py-ansible2.17-ubuntu22-default run -- test -s default --destroy=never
 
   # exec into the container via tox
-  tox -e py-ansible2.16-ubuntu22-default run -- login -s default
+  tox -e py-ansible2.17-ubuntu22-default run -- login -s default
   # exec into the container
-  docker exec -it py-ansible2.16-ubuntu22-default bash
+  docker exec -it py-ansible2.17-ubuntu22-default bash
 
   # parallel testing
   tox -f default run-parallel -- test -s default --destroy=never
