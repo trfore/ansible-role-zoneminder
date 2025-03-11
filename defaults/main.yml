@@ -1,5 +1,5 @@
 ---
-zoneminder_db: mysql # mariadb or mysql
+zoneminder_db: mariadb # mariadb or mysql
 zoneminder_db_user: "zmuser"
 zoneminder_db_pass: "zmpass"
 zoneminder_secure_db: true
