@@ -1,0 +1,39 @@
+name: Release Check
+on:
+  pull_request:
+    paths:
+      - "zoneminder.version"
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [debian12, ubuntu2404]
+        experimental: [false]
+        molecule_scenario: ["-s default"]
+        include:
+          - distro: ubuntu2404
+            experimental: false
+            molecule_scenario: "-s mysql"
+    uses: trfore/ansible-role/.github/workflows/test_ansible.yml@main
+    with:
+      distro: ${{ matrix.distro }}
+      experimental: ${{ matrix.experimental }}
+      molecule_scenario: ${{ matrix.molecule_scenario }}
+      requirements_file: "requirements/dev-requirements.txt"
+
+  check:
+    if: ${{ always() && (github.event_name != 'schedule') }}
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - run: >-
+          python -c "assert set([
+          '${{ needs.test.result }}',
+          ]) == {'success'}"
