@@ -14,4 +14,4 @@ CONTRIBUTING.md export-ignore
 molecule export-ignore
 requirements export-ignore
 tox.ini export-ignore
-zoneminder.version
+zoneminder.version export-ignore
