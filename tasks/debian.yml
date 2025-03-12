@@ -30,7 +30,6 @@
 
 - name: Install and Configure ZM
   notify:
-    - "Create Tables in ZM Database"
     - "Start ZM Service"
     - "Configure Apache"
   block:
