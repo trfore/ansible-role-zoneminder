@@ -1,10 +1,4 @@
 ---
-- name: Create Tables in ZM Database
-  ansible.builtin.shell: |
-    mysql --user='{{ zoneminder_db_user }}' --password='{{ zoneminder_db_pass }}' < /usr/share/zoneminder/db/zm_create.sql
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version == "12"
-  changed_when: true
-
 - name: Start ZM Service
   ansible.builtin.service:
     name: zoneminder
