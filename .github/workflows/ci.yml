@@ -30,11 +30,11 @@ jobs:
       matrix:
         distro: [debian11, debian12, ubuntu2204]
         experimental: [false]
-        molecule_scenario: ["-s mariadb"]
+        molecule_scenario: ["-s default"]
         include:
           - distro: ubuntu2204
             experimental: false
-            molecule_scenario: "-s default"
+            molecule_scenario: "-s mysql"
     uses: trfore/ansible-role/.github/workflows/test_ansible.yml@main
     with:
       distro: ${{ matrix.distro }}

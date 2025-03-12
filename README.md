@@ -36,16 +36,17 @@ ansible-galaxy role install trfore.zoneminder
   these inputs, incorrect values will break the install.
 - `MySQL` is not available on Debian, `MariaDB` is automatically installed.
 
-  | Variable               | Default  | Description                                                                           | Required |
-  | ---------------------- | -------- | ------------------------------------------------------------------------------------- | -------- |
-  | `zoneminder_db`        | `mysql`  | String, database backend - `MariaDB` or `MySQL`                                       | No       |
-  | `zoneminder_db_user`   | `zmuser` | String, database username for ZM.                                                     | No       |
-  | `zoneminder_db_pass`   | `zmpass` | String, database password for ZM.                                                     | No       |
-  | `zoneminder_secure_db` | `true`   | Boolean, secure the database - drop 'test' db and remove anonymous users              | No       |
-  | `zoneminder_smtp`      | `false`  | Boolean, install SMTP packages, `msmtp` and `mailutils`, for sending ZM notifications | No       |
+  | Variable               | Default   | Description                                                                           | Required |
+  | ---------------------- | --------- | ------------------------------------------------------------------------------------- | -------- |
+  | `zoneminder_db`        | `mariadb` | String, database backend - `MariaDB` or `MySQL`                                       | No       |
+  | `zoneminder_db_user`   | `zmuser`  | String, database username for ZM.                                                     | No       |
+  | `zoneminder_db_pass`   | `zmpass`  | String, database password for ZM.                                                     | No       |
+  | `zoneminder_secure_db` | `true`    | Boolean, secure the database - drop 'test' db and remove anonymous users              | No       |
+  | `zoneminder_smtp`      | `false`   | Boolean, install SMTP packages, `msmtp` and `mailutils`, for sending ZM notifications | No       |
 
 ## Dependencies
 
+- `community.general`
 - `community.mysql`
 
 ## Example Playbook
@@ -83,7 +84,8 @@ Zoneminder:
 
 - [Zoneminder]
 - [Zoneminder Docs]
-- [Zoneminder Repo]
+- [Zoneminder GitHub Repo]
+- [Zoneminder Package Repo]
 - [Zoneminder Wiki]
 - [GitHub: Zoneminder]
 
@@ -95,5 +97,6 @@ Zoneminder:
 [PyMySQL]: https://pymysql.readthedocs.io/en/latest/
 [Zoneminder]: https://zoneminder.com/
 [Zoneminder Docs]: https://zoneminder.readthedocs.io/en/latest/index.html
-[Zoneminder Repo]: https://zmrepo.zoneminder.com/
+[Zoneminder GitHub Repo]: https://github.com/ZoneMinder/zoneminder
+[Zoneminder Package Repo]: https://zmrepo.zoneminder.com/
 [Zoneminder Wiki]: https://wiki.zoneminder.com

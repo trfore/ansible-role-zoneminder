@@ -26,6 +26,6 @@
       vars:
         zoneminder_db_user: "zm_server"
         zoneminder_db_pass: "mypa$sw0rd"
-        zoneminder_db: mariadb
+        zoneminder_db: mysql
         zoneminder_secure_db: true
         zoneminder_smtp: true
