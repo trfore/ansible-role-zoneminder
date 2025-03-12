@@ -1,7 +1,7 @@
 # Ansible Role - trfore.zoneminder
 
-[![CI](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/ci.yml)
-[![CD](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/cd.yml)
+[![CI](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/ci.yml/badge.svg)](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/ci.yml)
+[![CD](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/cd.yml/badge.svg)](https://github.com/trfore/ansible-role-zoneminder/actions/workflows/cd.yml)
 
 This role will install the following on the target node:
 
