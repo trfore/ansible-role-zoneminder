@@ -20,12 +20,9 @@ docs/build.sh
 docs/conf.py
 docs/requirements.txt
 
-# ansible molecule - local dev files
-molecule/*/files/02proxy
-
 # general extras
 .DS_Store
-.private
+*.private
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
