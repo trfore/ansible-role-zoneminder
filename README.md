@@ -84,7 +84,8 @@ Zoneminder:
 
 - [Zoneminder]
 - [Zoneminder Docs]
-- [Zoneminder Repo]
+- [Zoneminder GitHub Repo]
+- [Zoneminder Package Repo]
 - [Zoneminder Wiki]
 - [GitHub: Zoneminder]
 
@@ -96,5 +97,6 @@ Zoneminder:
 [PyMySQL]: https://pymysql.readthedocs.io/en/latest/
 [Zoneminder]: https://zoneminder.com/
 [Zoneminder Docs]: https://zoneminder.readthedocs.io/en/latest/index.html
-[Zoneminder Repo]: https://zmrepo.zoneminder.com/
+[Zoneminder GitHub Repo]: https://github.com/ZoneMinder/zoneminder
+[Zoneminder Package Repo]: https://zmrepo.zoneminder.com/
 [Zoneminder Wiki]: https://wiki.zoneminder.com
