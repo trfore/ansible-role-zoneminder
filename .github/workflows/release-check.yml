@@ -1,4 +1,4 @@
-name: Update Step Version
+name: Update Zoneminder Version
 on:
   workflow_dispatch:
   schedule:
