@@ -1,5 +1,5 @@
 -r ../requirements.txt
-ansible-compat==25.8.2
+ansible-compat==25.12.0
 ansible-lint>=6.14.0
 ansible>=7.4
 antsibull-changelog>=0.26.0
